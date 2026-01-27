@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مكتبة تأجير الروايات</title>
+    <!-- خط عربي -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #4f7cff, #9bb3ff);
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+        }
+
+        header {
+            color: white;
+            padding: 25px;
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 25px;
+            padding: 30px;
+            padding-bottom: 160px;
+            /* علشان الشريط ما يغطيش الكتب */
+        }
+
+        .book-card {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 20px;
+            padding: 18px;
+            text-align: center;
+            box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.15);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .book-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0px 12px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .book-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #001f54;
+        }
+
+        /* لتغيير حجم صورة الرواية */
+        .book-card img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            border-radius: 14px;
+            margin-bottom: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .rent {
+            color: #001f54;
+            font-size: 16px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .rent-btn {
+            background: linear-gradient(90deg, #001f91, #3f5efb);
+            color: white;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .rent-btn:hover {
+            opacity: 0.85;
+        }
+
+        /* 🔻 الشريط الثابت */
+        .contact-bar {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            background: #0d1b3e;
+            color: white;
+            padding: 12px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 15px;
+            z-index: 999;
+        }
+
+        .contact-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .contact-label {
+            font-weight: 700;
+        }
+
+        .whatsapp-btn {
+            background: #25D366;
+            color: white;
+            padding: 8px 14px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .whatsapp-btn:hover {
+            opacity: 0.85;
+        }
+
+        .whatsapp-img {
+            width: 22px;
+            height: 22px;
+        }
+
+        .whatsapp-btn:active {
+            transform: scale(0.95);
+        }
+
+        .rent-btn:active {
+            transform: scale(0.95);
+        }
+
+        .book-status {
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 15px;
+            border-radius: 8px;
+            padding: 4px 8px;
+            display: inline-block;
+        }
+
+        /* الألوان حسب الحالة */
+        .book-status.excellent {
+            background-color: #28a745;
+            color: white;
+        }
+
+        /* ممتازة - أخضر */
+        .book-status.very-good {
+            background-color: #5cb85c;
+            color: white;
+        }
+
+        /* جيد جدًا - أخضر فاتح */
+        .book-status.good {
+            background-color: #ffc107;
+            color: black;
+        }
+
+        /* جيد - أصفر */
+        .book-status.fair {
+            background-color: #fd7e14;
+            color: white;
+        }
+
+        /* مقبول - برتقالي */
+        .book-status.weak {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        /* ضعيف - أحمر */
+        .status {
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .available {
+            background-color: green;
+        }
+
+        .unavailable {
+            background-color: red;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    </style>
+
+
+
+    <script>
+        document.addEventListener('mousemove', function (e) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+
+            // استخدمنا pageX و pageY بدل clientX و clientY
+            particle.style.left = e.pageX + 'px';
+            particle.style.top = e.pageY + 'px';
+
+            document.body.appendChild(particle);
+
+            particle.addEventListener('animationend', () => {
+                particle.remove();
+            });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+
+            const searchInput = document.getElementById('searchInput');
+            const books = document.querySelectorAll('.book-card');
+
+            searchInput.addEventListener('input', function () {
+                const value = this.value.toLowerCase();
+
+                books.forEach(book => {
+                    const title = book.querySelector('.book-title').textContent.toLowerCase();
+                    book.style.display = title.includes(value) ? 'block' : 'none';
+                });
+            });
+
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // تغيير حالة كتاب (متوفر / غير متوفر)
+            function setAvailability(bookElement, available) {
+                const status = bookElement.querySelector('.status');
+                const button = bookElement.querySelector('.rent-btn');
+
+                if (!status || !button) return; // أمان
+
+                if (available) {
+                    status.textContent = 'متوفر';
+                    status.classList.remove('unavailable');
+                    status.classList.add('available');
+                    button.disabled = false;
+                } else {
+                    status.textContent = 'غير متوفر';
+                    status.classList.remove('available');
+                    status.classList.add('unavailable');
+                    button.disabled = true;
+                }
+            }
+
+            // تطبيق الحالة حسب الكلاس الموجود في الـ HTML
+            document.querySelectorAll('.book-card').forEach(book => {
+                const status = book.querySelector('.status');
+
+                if (status && status.classList.contains('unavailable')) {
+                    setAvailability(book, false);
+                } else {
+                    setAvailability(book, true);
+                }
+            });
+
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // وظيفة تغيير حالة الكتاب (متوفر / غير متوفر)
+            function setAvailability(bookElement, available) {
+                const status = bookElement.querySelector('.status');
+                const button = bookElement.querySelector('.rent-btn');
+                if (!status || !button) return;
+
+                if (available) {
+                    status.textContent = 'متوفر';
+                    status.classList.remove('unavailable');
+                    status.classList.add('available');
+                    button.disabled = false;
+                } else {
+                    status.textContent = 'غير متوفر';
+                    status.classList.remove('available');
+                    status.classList.add('unavailable');
+                    button.disabled = true;
+                }
+            }
+
+            document.querySelectorAll('.book-card').forEach(book => {
+                const status = book.querySelector('.status');
+                if (status && status.classList.contains('unavailable')) {
+                    setAvailability(book, false);
+                } else {
+                    setAvailability(book, true);
+                }
+            });
+        });
+
+        // وظيفة إرسال الرسالة للواتساب مع التواريخ تلقائياً
+        function sendRentOrder(button) {
+            const bookCard = button.closest('.book-card');
+            const bookTitle = bookCard.querySelector('.book-title').innerText;
+
+            // إعداد التواريخ
+            const now = new Date();
+            const nextWeek = new Date();
+            nextWeek.setDate(now.getDate() + 7);
+
+            // تنسيق التاريخ باللغة العربية
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const startDateStr = now.toLocaleDateString('ar-EG', options);
+            const endDateStr = nextWeek.toLocaleDateString('ar-EG', options);
+
+            // نص الرسالة
+            const message = `أرغب بتأجير رواية (${bookTitle}) لمدة أسبوع من يوم (${startDateStr}) إلى يوم (${endDateStr})`;
+
+            // رابط الواتساب (تأكد من كتابة رقمك هنا)
+            const phoneNumber = "966532956274";
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
+
+
+
+    <style>
+        /* ستايل النقاط */
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 1;
+            transform: translate(-50%, -50%);
+            animation: fade 0.6s forwards;
+        }
+
+        @keyframes fade {
+            to {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0);
+            }
+        }
+    </style>
+    <!-- تظبيط شكل المتصفح -->
+    <style>
+        #searchInput {
+            width: 100%;
+            max-width: 400px;
+            padding: 12px;
+            margin: 20px auto;
+            display: block;
+            font-family: 'Cairo', sans-serif;
+            font-size: 16px;
+        }
+    </style>
+    <!-- اكواد تشغيل المتصفح -->
+
+
+
+</head>
+
+<body>
+
+    <!-- كود حالة الرواية 
+    <span class="status available">متوفر</span>
+    <span class="status unavailable">غير متوفر</span> -->
+
+
+    <header>مكتبة تأجير الروايات</header>
+    <input type="text" id="searchInput" placeholder="ابحث عن رواية  ( دون كتابة أي همزات ) ">
+
+
+    <div class="books-grid">
+
+        <!-- 👇 مثال كتاب (كرر لحد 60 كتاب) -->
+        <div class="book-card">
+            <div class="book-title">رواية ارض زيكولا </div>
+            <img loading="lazy" alt="كتاب 1" src="Project-Images/Ard-Zecola.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status unavailable">غير متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+
+        <div class="book-card">
+            <div class="book-title">رواية ايناس</div>
+            <img loading="lazy" alt="كتاب 1" src="Project-Images/Inas.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+
+        <div class="book-card">
+            <div class="book-title">رواية محطة الرمل</div>
+            <img loading="lazy" alt="كتاب 1" src="Project-Images/Raml.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="window.open('https://wa.me/966532956274','_blank')">تأجير</button>
+        </div>
+        <div class="book-card">
+            <div class="book-title">رواية اوبال</div>
+            <img loading="lazy" alt="كتاب 1" src="Project-Images/Obal.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="window.open('https://wa.me/966532956274','_blank')">تأجير</button>
+        </div>
+        <div class="book-card">
+            <div class="book-title">رواية ابادول</div>
+            <img loading="lazy" alt="كتاب 1" src="Project-Images/Abadol.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="window.open('https://wa.me/966532956274','_blank')">تأجير</button>
+        </div>
+        <div class="book-card">
+            <div class="book-title">رواية ايكادولي</div>
+            <img loading="lazy" alt="كتاب 1" src="Project-Images/Icadoli.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="window.open('https://wa.me/966532956274','_blank')">تأجير</button>
+        </div>
+    </div>
+
+    <!-- 🔻 شريط التواصل الثابت -->
+    <div class="contact-bar">
+        <div>
+            <span class="contact-label">المالك:</span>
+            Ahmed Elgenedy
+        </div>
+
+        <div class="contact-left">
+            <span class="contact-label">رقم التواصل:</span>
+            <span>0532956274</span> <!-- هنا تكتب رقمك -->
+        </div>
+
+        <button class="whatsapp-btn" onclick="window.open('https://wa.me/966532956274','_blank')" id="whatsapp-btn">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="whatsapp-img">
+            واتساب
+        </button>
+
+    </div>
+
+</body>
+
+</html>
