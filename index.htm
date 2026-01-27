@@ -206,85 +206,78 @@
         }
 
         /* الكود الأساسي للابتوب يظل كما هو فوق، وهذا الجزء يضاف تحته */
-       @media screen and (max-width: 768px) {
-    /* 1. ضبط خلفية الصفحة وتوسيط العناوين */
+     @media screen and (max-width: 768px) {
+    /* 1. الهيدر والبحث في المنتصف */
     header {
-        font-size: 20px;
-        padding: 10px;
+        font-size: 24px;
         text-align: center;
     }
     
     #searchInput {
-        max-width: 85%;
-        margin: 10px auto;
+        width: 80%;
+        margin: 0 auto 20px auto;
         display: block;
         text-align: center;
     }
 
-    /* 2. ترتيب الكتب: كتابين بجانب بعض وتوسيطهم */
+    /* 2. توسيط الكتب وترك مسافة من الحواف */
     .books-grid {
-        grid-template-columns: repeat(2, 1fr); /* كتابين بالضبط في الصف */
-        gap: 10px;
-        padding: 10px;
-        padding-bottom: 180px; /* مساحة كافية للشريط السفلي عشان ميتغطاش */
-        justify-items: center;
+        display: grid;
+        /* جعل العمودين بعرض ثابت (150px) لضمان وجود فراغ في المنتصف ومن الجوانب */
+        grid-template-columns: repeat(2, 150px); 
+        gap: 20px; 
+        justify-content: center; /* هذه هي أهم خاصية للتوسيط في منتصف الصفحة */
+        padding: 20px;
+        padding-bottom: 220px; 
     }
 
-    /* 3. تصغير كرت الكتاب ليتناسب مع العرض الجديد */
+    /* 3. كرت الكتاب: تنسيق متناسق */
     .book-card {
-        padding: 8px;
-        width: 100%;
+        width: 150px; /* توحيد عرض الكروت */
         display: flex;
         flex-direction: column;
         align-items: center;
+        text-align: center;
+        padding: 10px;
     }
 
     .book-card img {
-        height: 160px; /* تقليل الطول ليناسب عرض الكتابين */
+        height: 220px; /* طول مناسب جداً للموبايل */
         width: 100%;
         object-fit: cover;
+        margin-bottom: 12px;
     }
 
     .book-title {
-        font-size: 13px;
-        height: 35px; /* توحيد الطول عشان الكروت تبقى مقاس واحد */
-        overflow: hidden;
+        font-size: 14px;
+        height: 40px; /* لضمان تساوي الأسطر */
+        margin-bottom: 5px;
     }
 
-    /* 4. حل مشكلة التصاق الأزرار وتصغير "متوفر" */
+    /* 4. إبعاد الأزرار عن الكلمة */
     .status {
-        font-size: 10px !important;
-        padding: 2px 6px !important;
-        margin-top: 5px;
-        margin-bottom: 10px !important; /* دي اللي بتبعد الزرار عن الكلمة */
         display: inline-block;
+        margin-bottom: 15px !important; /* مسافة واضحة جداً */
+        font-size: 11px !important;
     }
 
-    .rent-btn {
-        width: 100%;
-        font-size: 12px;
-        padding: 6px 0;
-    }
-
-    /* 5. ضبط شريط التواصل السفلي (الذي سبب اللخبطة) */
+    /* 5. شريط التواصل: توسيط كل شيء فوق بعضه */
     .contact-bar {
-        height: auto;
-        padding: 15px 5px;
-        flex-direction: column; /* العناصر فوق بعضها */
-        gap: 8px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         text-align: center;
-        background: rgba(13, 27, 62, 0.95); /* شفافية بسيطة ليعطي شكلاً أجمل */
+        padding: 15px 0;
+        gap: 10px;
     }
 
-    .contact-left, .contact-bar div {
-        font-size: 11px;
+    .contact-left {
+        width: 100%;
         justify-content: center;
     }
 
     .whatsapp-btn {
-        width: 80%; /* زر واتساب عريض وسهل الضغط */
         margin: 0 auto;
-        justify-content: center;
     }
 }
     
@@ -545,4 +538,5 @@
 
 
 </html>
+
 
