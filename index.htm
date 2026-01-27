@@ -206,87 +206,98 @@
         }
 
         /* الكود الأساسي للابتوب يظل كما هو فوق، وهذا الجزء يضاف تحته */
+    @media screen and (max-width: 768px) {
+    /* 1. جعل الهيدر والبحث في المنتصف وتصغيرهم */
+    header {
+        font-size: 22px;
+        padding: 15px;
+        text-align: center;
+    }
+    
+    #searchInput {
+        max-width: 80%;
+        padding: 10px;
+        font-size: 14px;
+        margin: 10px auto;
+        display: block; /* لضمان التوسط */
+        text-align: center;
+    }
 
-        @media screen and (max-width: 768px) {
+    /* 2. تنظيم شبكة الكتب لتكون في المنتصف */
+    .books-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+        padding: 15px;
+        padding-bottom: 140px; 
+        justify-items: center; /* توسيط الكروت نفسها */
+    }
 
-            /* 1. تصغير الهيدر والبحث */
-            header {
-                font-size: 22px;
-                padding: 15px;
-            }
+    /* 3. تنسيق كرت الكتاب وتوسيط محتواه */
+    .book-card {
+        padding: 10px;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* توسيط كل شيء داخل الكرت */
+        width: 100%;
+    }
 
-            #searchInput {
-                max-width: 85%;
-                padding: 10px;
-                font-size: 14px;
-                margin: 10px auto;
-            }
+    .book-card img {
+        height: 180px; 
+        width: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+    }
 
-            /* 2. تصغير شبكة الكتب (عرض كتابين في الصف بدلاً من واحد) */
-            .books-grid {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-                gap: 12px;
-                padding: 15px;
-                padding-bottom: 120px;
-                /* مسافة للشريط السفلي */
-            }
+    .book-title {
+        font-size: 14px;
+        margin: 8px 0;
+        text-align: center;
+    }
 
-            /* 3. تصغير كرت الكتاب ومحتوياته */
-            .book-card {
-                padding: 10px;
-                border-radius: 12px;
-            }
+    .rent {
+        font-size: 12px;
+        margin-bottom: 8px;
+        text-align: center;
+    }
 
-            .book-card img {
-                height: 200px;
-                /* تقليل طول الصورة ليناسب الشاشة */
-                border-radius: 10px;
-            }
+    /* 4. تصغير حالة الكتاب وحل مشكلة الالتصاق */
+    .status {
+        font-size: 10px !important; /* تصغير الخط */
+        padding: 2px 8px !important;
+        margin-bottom: 12px !important; /* مسافة كافية قبل زر التأجير */
+        display: inline-block;
+    }
 
-            .book-title {
-                font-size: 14px;
-                margin-bottom: 5px;
-            }
+    .rent-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+        width: 90%; 
+        margin: 0 auto;
+    }
 
-            .rent,
-            .book-status {
-                font-size: 12px;
-                margin-bottom: 8px;
-            }
+    /* 5. توسيط شريط التواصل وتنسيقه */
+    .contact-bar {
+        padding: 10px;
+        flex-direction: column; /* ترتيب العناصر فوق بعضها للتوسط */
+        align-items: center;
+        gap: 8px;
+        font-size: 11px;
+        text-align: center;
+    }
 
-            .rent-btn {
-                padding: 6px 10px;
-                font-size: 12px;
-                width: 100%;
-                /* جعل الزر بعرض الكرت ليسهل الضغط عليه */
-            }
+    .contact-left {
+        justify-content: center;
+        width: 100%;
+    }
 
-            /* 4. تصغير شريط التواصل السفلي */
-            .contact-bar {
-                padding: 8px 10px;
-                font-size: 11px;
-                flex-direction: row;
-                /* الحفاظ على العناصر بجانب بعضها */
-                justify-content: space-around;
-                gap: 5px;
-            }
-
-            .contact-left,
-            .contact-label {
-                font-size: 11px;
-            }
-
-            .whatsapp-btn {
-                padding: 4px 8px;
-                font-size: 11px;
-                border-radius: 6px;
-            }
-
-            .whatsapp-img {
-                width: 16px;
-                height: 16px;
-            }
-        }
+    .whatsapp-btn {
+        padding: 5px 15px;
+        font-size: 11px;
+        width: fit-content;
+    }
+}
+    
     </style>
 
 
@@ -541,5 +552,6 @@
     </div>
 
 </body>
+
 
 </html>
