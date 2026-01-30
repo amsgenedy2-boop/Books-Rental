@@ -206,133 +206,167 @@
         }
 
         /* الكود الأساسي للابتوب يظل كما هو فوق، وهذا الجزء يضاف تحته */
-   @media screen and (max-width: 768px) {
-    /* 1. الهيدر والبحث */
-    header { font-size: 20px; padding: 12px; text-align: center; }
-    #searchInput { width: 85%; margin: 10px auto !important; display: block; text-align: center; }
-
-    /* 2. شبكة الكتب وتوسيطها */
-    .books-grid {
-        display: grid !important;
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 12px;
-        padding: 10px;
-        justify-items: center; 
-        margin: 0 auto;
-        padding-bottom: 240px; /* زيادة المساحة عشان الصور طولت */
-    }
-
-    /* 3. كارت الكتاب وتطويل الصور */
-    .book-card {
-        width: 95%;
-        padding: 10px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .book-card img {
-        height: 240px; /* زيادة طول الصور كما طلبت */
-        width: 100%;
-        object-fit: cover;
-        border-radius: 12px;
-    }
-
-    .book-title { font-size: 14px; height: 40px; margin: 10px 0; font-weight: 600; }
-    
-    .status {
-        font-size: 10px !important;
-        margin-bottom: 12px !important;
-        display: inline-block;
-    }
-
-    .rent-btn { width: 100%; padding: 10px 0; font-size: 13px; }
-
-    /* 4. المربع الأسود (توسيط شامل وقاتل) */
-    .contact-bar {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        width: 100% !important;
-        background: #0d1b3e;
-        padding: 20px 0 !important; /* مساحة داخلية متساوية */
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important; /* سنترة أفقية */
-        justify-content: center !important; /* سنترة عمودية */
-        text-align: center !important;
-        gap: 10px;
-        z-index: 1000;
-        box-shadow: 0 -5px 15px rgba(0,0,0,0.3); /* ظل ليفصله عن الكتب */
-    }
-
-    /* ضمان توسط النصوص داخل المربع الأسود */
-    .contact-bar div, .contact-left {
-        width: 100%;
-        display: flex !important;
-        justify-content: center !important; /* التوسط الأفقي للنص */
-        align-items: center;
-        font-size: 13px;
-        margin: 0 auto !important;
-    }
-
-    .whatsapp-btn {
-        width: 160px; /* عرض ثابت لضمان السنترة */
-        margin: 5px auto 0 !important;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-}
         @media screen and (max-width: 768px) {
-    /* 1. تصفير أي مسافات تلقائية في الصفحة قد تسبب ميل لليمين */
-    body {
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden; /* يمنع ظهور شريط تمرير عرضي */
-    }
 
-    /* 2. التأكد من أن شبكة الكتب تتوسط الشاشة بالملي */
-    .books-grid {
-        margin: 0 auto !important;
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-        width: 100%;
-        display: grid !important;
-        justify-content: center !important;
-    }
+            /* 1. الهيدر والبحث */
+            header {
+                font-size: 20px;
+                padding: 12px;
+                text-align: center;
+            }
 
-    /* 3. المربع الأسود (شريط التواصل) */
-    .contact-bar {
-        left: 0 !important;
-        right: 0 !important;
-        width: 100% !important;
-        margin: 0 !important;
-        padding: 20px 0 !important; /* تصفير البادينج الجانبي لضمان التوسط */
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-    }
+            #searchInput {
+                width: 85%;
+                margin: 10px auto !important;
+                display: block;
+                text-align: center;
+            }
 
-    /* 4. إلغاء أي إزاحة في النصوص داخل الشريط */
-    .contact-bar div, .contact-left {
-        width: 100%;
-        margin: 0 auto !important;
-        padding: 0 !important;
-        justify-content: center !important;
-        text-align: center !important;
-    }
+            /* 2. شبكة الكتب وتوسيطها */
+            .books-grid {
+                display: grid !important;
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 12px;
+                padding: 10px;
+                justify-items: center;
+                margin: 0 auto;
+                padding-bottom: 240px;
+                /* زيادة المساحة عشان الصور طولت */
+            }
 
-    /* 5. ضبط أزرار الواتساب والتأجير لتكون في المنتصف */
-    .whatsapp-btn, .rent-btn {
-        margin-left: auto !important;
-        margin-right: auto !important;
-    }
-}
-    
+            /* 3. كارت الكتاب وتطويل الصور */
+            .book-card {
+                width: 95%;
+                padding: 10px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .book-card img {
+                height: 240px;
+                /* زيادة طول الصور كما طلبت */
+                width: 100%;
+                object-fit: cover;
+                border-radius: 12px;
+            }
+
+            .book-title {
+                font-size: 14px;
+                height: 40px;
+                margin: 10px 0;
+                font-weight: 600;
+            }
+
+            .status {
+                font-size: 10px !important;
+                margin-bottom: 12px !important;
+                display: inline-block;
+            }
+
+            .rent-btn {
+                width: 100%;
+                padding: 10px 0;
+                font-size: 13px;
+            }
+
+            /* 4. المربع الأسود (توسيط شامل وقاتل) */
+            .contact-bar {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 100% !important;
+                background: #0d1b3e;
+                padding: 20px 0 !important;
+                /* مساحة داخلية متساوية */
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                /* سنترة أفقية */
+                justify-content: center !important;
+                /* سنترة عمودية */
+                text-align: center !important;
+                gap: 10px;
+                z-index: 1000;
+                box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.3);
+                /* ظل ليفصله عن الكتب */
+            }
+
+            /* ضمان توسط النصوص داخل المربع الأسود */
+            .contact-bar div,
+            .contact-left {
+                width: 100%;
+                display: flex !important;
+                justify-content: center !important;
+                /* التوسط الأفقي للنص */
+                align-items: center;
+                font-size: 13px;
+                margin: 0 auto !important;
+            }
+
+            .whatsapp-btn {
+                width: 160px;
+                /* عرض ثابت لضمان السنترة */
+                margin: 5px auto 0 !important;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+
+            /* 1. تصفير أي مسافات تلقائية في الصفحة قد تسبب ميل لليمين */
+            body {
+                margin: 0;
+                padding: 0;
+                overflow-x: hidden;
+                /* يمنع ظهور شريط تمرير عرضي */
+            }
+
+            /* 2. التأكد من أن شبكة الكتب تتوسط الشاشة بالملي */
+            .books-grid {
+                margin: 0 auto !important;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+                width: 100%;
+                display: grid !important;
+                justify-content: center !important;
+            }
+
+            /* 3. المربع الأسود (شريط التواصل) */
+            .contact-bar {
+                left: 0 !important;
+                right: 0 !important;
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 20px 0 !important;
+                /* تصفير البادينج الجانبي لضمان التوسط */
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                justify-content: center !important;
+            }
+
+            /* 4. إلغاء أي إزاحة في النصوص داخل الشريط */
+            .contact-bar div,
+            .contact-left {
+                width: 100%;
+                margin: 0 auto !important;
+                padding: 0 !important;
+                justify-content: center !important;
+                text-align: center !important;
+            }
+
+            /* 5. ضبط أزرار الواتساب والتأجير لتكون في المنتصف */
+            .whatsapp-btn,
+            .rent-btn {
+                margin-left: auto !important;
+                margin-right: auto !important;
+            }
+        }
     </style>
 
 
@@ -509,7 +543,9 @@
 
     <!-- كود حالة الرواية 
     <span class="status available">متوفر</span>
-    <span class="status unavailable">غير متوفر</span> -->
+    
+    <span class="status unavailable">غير متوفر</span>
+     -->
 
 
     <header>مكتبة تأجير الروايات</header>
@@ -520,17 +556,8 @@
 
         <!-- 👇 مثال كتاب (كرر لحد 60 كتاب) -->
         <div class="book-card">
-            <div class="book-title">رواية ارض زيكولا </div>
-            <img loading="lazy" alt="كتاب 1" src="Project-Images/Ard-Zecola.jpg">
-            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-            <span class="status unavailable">غير متوفر</span>
-            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-        </div>
-
-
-        <div class="book-card">
-            <div class="book-title">رواية ايناس</div>
-            <img loading="lazy" alt="كتاب 1" src="Project-Images/Inas.jpg">
+            <div class="book-title"> ارض زيكولا </div>
+            <img loading="lazy" alt="الصورة غير متوفرة" src="Project-Images/Ard-Zecola.jpg">
             <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
             <span class="status available">متوفر</span>
             <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
@@ -538,29 +565,150 @@
 
 
         <div class="book-card">
-            <div class="book-title">رواية محطة الرمل</div>
-            <img loading="lazy" alt="كتاب 1" src="Project-Images/Raml.jpg">
+            <div class="book-title"> ايناس</div>
+            <img loading="lazy" alt="الصورة غير متوفرة" src="Project-Images/Inas.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+
+        <div class="book-card">
+            <div class="book-title"> محطة الرمل</div>
+            <img loading="lazy" alt="الصورة غير متوفرة" src="Project-Images/Raml.jpg">
             <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
             <span class="status available">متوفر</span>
             <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
         </div>
         <div class="book-card">
-            <div class="book-title">رواية اوبال</div>
-            <img loading="lazy" alt="كتاب 1" src="Project-Images/Obal.jpg">
+            <div class="book-title"> اوبال</div>
+            <img loading="lazy" alt="الصورة غير متوفرة" src="Project-Images/Obal.jpg">
             <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
             <span class="status available">متوفر</span>
             <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
         </div>
         <div class="book-card">
-            <div class="book-title">رواية ابادول</div>
-            <img loading="lazy" alt="كتاب 1" src="Project-Images/Abadol.jpg">
+            <div class="book-title"> ابادول</div>
+            <img loading="lazy" alt="الصورة غير متوفرة" src="Project-Images/Abadol.jpg">
             <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
             <span class="status available">متوفر</span>
             <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
         </div>
         <div class="book-card">
-            <div class="book-title">رواية ايكادولي</div>
-            <img loading="lazy" alt="كتاب 1" src="Project-Images/Icadoli.jpg">
+            <div class="book-title"> ايكادولي</div>
+            <img loading="lazy" alt="الصورة غير متوفرة" src="Project-Images/Icadoli.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+        <div class="book-card">
+            <div class="book-title"> ياسمين أبيض</div>
+            <img loading="lazy" alt="الصورة غير متوفرة" src="Project-Images/yasmin-Abyad.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+        <div class="book-card">
+            <div class="book-title"> ياسمين العودة</div>
+            <img loading="lazy" alt="الصورة غير متوفرة" src="Project-Images/yasmin-awdah.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+        <div class="book-card">
+            <div class="book-title"> أن تبقى</div>
+            <img loading="lazy" alt="الصورة غير متوفرة" src="Project-Images/An-Tabka.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+        <div class="book-card">
+            <div class="book-title"> آن في أفونليا</div>
+            <img loading="lazy" alt="الصورة غير متوفرة" src="Project-Images/AAn-inflonia.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+        <div class="book-card">
+            <div class="book-title"> الحفرة</div>
+            <img loading="lazy" alt="الصورة غير متوفرة" src="Project-Images/hofra.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+        <div class="book-card">
+            <div class="book-title"> الغرفة رقم 8</div>
+            <img loading="lazy" alt="الصورة غير متوفرة" src="Project-Images/Room8.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+        <div class="book-card">
+            <div class="book-title"> منزل السيدة البدينة</div>
+            <img loading="lazy" alt="الصورة غير متوفرة" src="Project-Images/Manzel-Alseeeday-Albadeenah.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+        <div class="book-card">
+            <div class="book-title"> جثة في بيت طائر الدودو</div>
+            <img loading="lazy" alt="الصورة غير متوفرة" src="Project-Images/Jothah-Dodo.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+        <div class="book-card">
+            <div class="book-title"> كريسماس في مكة </div>
+            <img loading="lazy" alt="الصورة غير متوفرة" src="Project-Images/Krismas-in-makkah.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+        <div class="book-card">
+            <div class="book-title"> نريد عينيك</div>
+            <img loading="lazy" alt="الصورة غير متوفرة" src="Project-Images/Untitled.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+        <div class="book-card">
+            <div class="book-title">قربان آل يونس</div>
+            <img loading="lazy" alt="الصورة غير متوفرة" src="Project-Images/qorban-AAl-Younis.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+        <div class="book-card">
+            <div class="book-title">وادي الذئاب المنسية</div>
+            <img loading="lazy" alt="الصورة غير متوفرة" src="Project-Images/Wadi-mansiah.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+        <div class="book-card">
+            <div class="book-title">مقتل بائع الكتب</div>
+            <img loading="lazy" alt="الصورة غير متوفرة" src="Project-Images/Maktal-Baea-Alkotob.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+        <div class="book-card">
+            <div class="book-title">مع النبي</div>
+            <img loading="lazy" alt="الصورة غير متوفرة" src="Project-Images/Maa-Alnabay.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+        <div class="book-card">
+            <div class="book-title">كوني صحابية</div>
+            <img loading="lazy" alt="الصورة غير متوفرة" src="Project-Images/Kooni-sahabiah.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+        <div class="book-card">
+            <div class="book-title"></div>
+            <img loading="lazy" alt="الصورة غير متوفرة" src="Project-Images/">
             <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
             <span class="status available">متوفر</span>
             <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
@@ -575,7 +723,7 @@
         </div>
 
         <div class="contact-left">
-            <span class="contact-label">رقم التواصل:</span>
+            <span class="contact-label">للشكاوي والمقترحات :</span>
             <span>0532956274</span> <!-- هنا تكتب رقمك -->
         </div>
 
@@ -590,9 +738,3 @@
 
 
 </html>
-
-
-
-
-
-
