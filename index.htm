@@ -1,687 +1,914 @@
 <!DOCTYPE html>
 <html lang="ar">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>مكتبة تأجير الروايات</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مكتبة تأجير الروايات</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
 
-<style>
-:root {
-    --whatsapp-green: #25D366;
-    --primary-blue: #4f7cff;
-}
+    <style>
+        :root {
+            --whatsapp-green: #25D366;
+            --primary-blue: #4f7cff;
+        }
 
-body {
-    font-family: 'Cairo', sans-serif;
-    background: linear-gradient(135deg, #4f7cff, #9bb3ff);
-    margin: 0;
-    direction: rtl;
-    transition: background 0.5s ease;
-    min-height: 100vh;
-}
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #4f7cff, #9bb3ff);
+            margin: 0;
+            direction: rtl;
+            transition: background 0.5s ease;
+            min-height: 100vh;
+        }
 
-header {
-    color: white;
-    padding: 30px 20px;
-    text-align: center;
-    font-size: 38px;
-    font-weight: 700;
-    text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
-}
+        header {
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            font-size: 38px;
+            font-weight: 700;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+        }
 
-.search-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 40px;
-}
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
 
-#searchInput {
-    width: 80%;
-    max-width: 550px;
-    padding: 15px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 18px;
-    font-family: 'Cairo', sans-serif;
-    text-align: center;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-    outline: none;
-    transition: 0.3s;
-}
+        #searchInput {
+            width: 80%;
+            max-width: 550px;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-family: 'Cairo', sans-serif;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            outline: none;
+            transition: 0.3s;
+        }
 
-.books-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 30px;
-    padding: 20px 50px 180px 50px;
-}
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 30px;
+            padding: 20px 50px 180px 50px;
+        }
 
-.book-card {
-    backdrop-filter: blur(12px);
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 25px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    position: relative;
-    overflow: hidden;
-    border: 1px solid rgba(255,255,255,0.3);
-}
+        .book-card {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
 
-.book-card:hover {
-    transform: translateY(-15px) scale(1.03);
-    background: rgba(255, 255, 255, 0.35);
-}
+        .book-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            background: rgba(255, 255, 255, 0.35);
+        }
 
-.book-card img {
-    width: 100%;
-    height: 350px;
-    object-fit: cover;
-    border-radius: 15px;
-    margin-bottom: 15px;
-}
+        .book-card img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 15px;
+        }
 
-.book-title {
-    font-weight: 700;
-    margin-bottom: 8px;
-    color: white;
-    font-size: 22px;
-}
+        .book-title {
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: white;
+            font-size: 22px;
+        }
 
-.rent {
-    color: #f8f9fa;
-    font-size: 14px;
-    margin-bottom: 10px;
-    font-weight: 600;
-}
+        .rent {
+            color: #f8f9fa;
+            font-size: 14px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
 
-.status {
-    display: inline-block;
-    padding: 4px 12px;
-    border-radius: 6px;
-    color: white;
-    font-size: 13px;
-    margin-bottom: 15px;
-}
+        .status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 6px;
+            color: white;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
 
-.available { background: #2ecc71; }
-.unavailable { background: #e74c3c; }
+        .available {
+            background: #2ecc71;
+        }
 
-.rent-btn {
-    background: linear-gradient(45deg, #001f91, #3f5efb);
-    color: white;
-    padding: 12px;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    width: 100%;
-    font-weight: 600;
-    font-size: 16px;
-    transition: 0.3s;
-}
+        .unavailable {
+            background: #e74c3c;
+        }
 
-.rent-btn:hover {
-    filter: brightness(1.2);
-}
+        .rent-btn {
+            background: linear-gradient(45deg, #001f91, #3f5efb);
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 600;
+            font-size: 16px;
+            transition: 0.3s;
+        }
 
-.contact-bar {
-    position: fixed;
-    bottom: 0; right: 0; left: 0;
-    background: #0d1b3e;
-    color: white;
-    padding: 15px 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 1000;
-}
+        .rent-btn:hover {
+            filter: brightness(1.2);
+        }
 
-#whatsappBtn {
-    background-color: var(--whatsapp-green);
-    color: white;
-    padding: 10px 25px;
-    border-radius: 50px;
-    font-weight: bold;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
+        .contact-bar {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            background: #0d1b3e;
+            color: white;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
 
-.gender-popup {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.9);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-}
+        #whatsappBtn {
+            background-color: var(--whatsapp-green);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-.gender-box { background: white; padding: 50px; border-radius: 30px; text-align: center; }
-.gender-options { display: flex; gap: 50px; margin-top: 30px; }
-.gender-options div { cursor: pointer; transition: 0.3s; }
-.gender-options img { width: 130px; }
+        .gender-popup {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
 
-@media (max-width: 600px) {
-    .books-grid { grid-template-columns: repeat(2, 1fr); padding: 10px 10px 220px 10px; gap: 15px; }
-    .book-card img { height: 220px; }
-    .book-title { font-size: 16px; }
-    header { font-size: 24px; }
-}
-.rent-btn:disabled {
-    background: gray;
-    cursor: not-allowed;
-}
-</style>
+        .gender-box {
+            background: white;
+            padding: 50px;
+            border-radius: 30px;
+            text-align: center;
+        }
+
+        .gender-options {
+            display: flex;
+            gap: 50px;
+            margin-top: 30px;
+        }
+
+        .gender-options div {
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .gender-options img {
+            width: 130px;
+        }
+
+        @media (max-width: 600px) {
+            .books-grid {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 10px 10px 220px 10px;
+                gap: 15px;
+            }
+
+            .book-card img {
+                height: 220px;
+            }
+
+            .book-title {
+                font-size: 16px;
+            }
+
+            header {
+                font-size: 24px;
+            }
+        }
+
+        .rent-btn:disabled {
+            background: gray;
+            cursor: not-allowed;
+        }
+
+        .unavailable {
+            background: #e74c3c;
+        }
+
+        .book-card:has(.unavailable) {
+            opacity: 0.6;
+        }
+
+        #topBtn {
+            position: fixed;
+            bottom: 100px;
+            left: 20px;
+            padding: 10px;
+            border: none;
+            border-radius: 50%;
+            background: #4f7cff;
+            color: white;
+            cursor: pointer;
+            display: none;
+        }
+
+        .avatar {
+            cursor: pointer;
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .avatar:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 10px rgba(255, 126, 179, 0.6));
+        }
+
+        .avatar:active {
+            transform: scale(0.95);
+        }
+
+        .gender-options div {
+            transition: 0.3s ease;
+        }
+    </style>
 </head>
+
 <body>
 
-<div class="gender-popup" id="genderPopup">
-    <div class="gender-box">
-        <h2 style="color: #333;">مرحباً بك.. اختر نوع المستخدم</h2>
-        <div class="gender-options">
-            <div onclick="setGender('male')">
-                <img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png">
-                <p style="color: #1e90ff; font-weight: bold;">ذكر</p>
-            </div>
-            <div onclick="setGender('female')">
-                <img src="https://cdn-icons-png.flaticon.com/512/4140/4140047.png">
-                <p style="color: #ff758c; font-weight: bold;">أنثى</p>
+    <div class="gender-popup" id="genderPopup">
+        <div class="gender-box">
+            <h2 style="color: #333;">مرحباً بك.. اختر نوع المستخدم</h2>
+            <div class="gender-options">
+                <div onclick="setGender('male')">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png">
+                    <p style="color: #1e90ff; font-weight: bold;">ذكر</p>
+                </div>
+                <div onclick="setGender('female')">
+                    <img src="https://cdn-icons-png.flaticon.com/512/6997/6997662.png">
+                    <p style="color: #ff758c; font-weight: bold;">أنثى</p>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<header>مكتبة تأجير الروايات</header>
+    <header>مكتبة تأجير الروايات</header>
 
-<div class="search-container">
-    <input type="text" id="searchInput" placeholder="ابحث عن رواية ( دون كتابة أي همزات )">
-</div>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="ابحث عن رواية">
+        <br>
+        <label style="color:white; display:block; text-align:center;"></label>
+    </div>
+    <div id="resultsCount" style="text-align:center; color:white; margin-bottom:10px;"></div>
+    <button id="topBtn">↑</button>
 
-<div class="books-grid">
-    <div class="book-card">
-        <div class="book-title">ايناس</div>
-        <img loading="lazy" src="Project-Images/Inas.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+    <div class="books-grid">
+        <div class="book-card">
+            <div class="book-title">ايناس</div>
+            <img loading="lazy" src="Project-Images/Inas.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">محطة الرمل</div>
+            <img loading="lazy" src="Project-Images/Raml.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">ايكادولي</div>
+            <img loading="lazy" src="Project-Images/Icadoli.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">اوبال</div>
+            <img loading="lazy" src="Project-Images/Obal.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">ابادول</div>
+            <img loading="lazy" src="Project-Images/Abadol.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">ياسمين أبيض</div>
+            <img loading="lazy" src="Project-Images/yasmin-Abyad.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">ياسمين العودة</div>
+            <img loading="lazy" src="Project-Images/yasmin-awdah.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">ان تبقى</div>
+            <img loading="lazy" src="Project-Images/An-Tabka.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">آن في أفونليا</div>
+            <img loading="lazy" src="Project-Images/AAn-inflonia.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">الحفرة</div>
+            <img loading="lazy" src="Project-Images/hofra.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">الغرفة رقم 8</div>
+            <img loading="lazy" src="Project-Images/Room8.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">منزل السيدة البدينة</div>
+            <img loading="lazy" src="Project-Images/Manzel-Alseeeday-Albadeenah.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">جثة في بيت طائر الدودو</div>
+            <img loading="lazy" src="Project-Images/Jothah-Dodo.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">كريسماس في مكة</div>
+            <img loading="lazy" src="Project-Images/Krismas-in-makkah.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">نريد عينيك</div>
+            <img loading="lazy" src="Project-Images/Untitled.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">قربان آل يونس</div>
+            <img loading="lazy" src="Project-Images/qorban-AAl-Younis.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">مقتل بائع الكتب</div>
+            <img loading="lazy" src="Project-Images/Maktal-Baea-Alkotob.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">مع النبي</div>
+            <img loading="lazy" src="Project-Images/Maa-Alnabay.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">كوني صحابية</div>
+            <img loading="lazy" src="Project-Images/Kooni-sahabiah.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">قواعد جارتين</div>
+            <img loading="lazy" src="Project-Images/Koaed-Jarten.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">دقات الشامو</div>
+            <img loading="lazy" src="Project-Images/Dakkat-Alshamo.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">امواج اكما</div>
+            <img loading="lazy" src="Project-Images/Amyaj-Akma.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">خوف 2</div>
+            <img loading="lazy" src="Project-Images/Khof-2.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">خوف 3</div>
+            <img loading="lazy" src="Project-Images/Khof-3.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">واحة اليعقوب</div>
+            <img loading="lazy" src="Project-Images/Wahet-Alyaaqoop.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">كفانا حزنا</div>
+            <img loading="lazy" src="Project-Images/Kafana-Hosnan.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">كيف تقول لا</div>
+            <img loading="lazy" src="Project-Images/How-to-say-no.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">في قلبي انثى عبرية</div>
+            <img loading="lazy" src="Project-Images/Fi-Kalbi-onsa-ebriah.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">فتاة الجزيرة</div>
+            <img loading="lazy" src="Project-Images/Fatat-Aljazeera.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">اخدود البعث</div>
+            <img loading="lazy" src="Project-Images/Albaath.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">ارني انظر اليك</div>
+            <img loading="lazy" src="Project-Images/Areney-Anthor-elayk.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">سقطرى</div>
+            <img loading="lazy" src="Project-Images/Sokotry.jpeg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">كويكول</div>
+            <img loading="lazy" src="Project-Images/koykol.jpeg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">امانوس</div>
+            <img loading="lazy" src="Project-Images/Amanoos.jpeg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">سيروش</div>
+            <img loading="lazy" src="Project-Images/Syroosh.jpeg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">فلتكوني بخير</div>
+            <img loading="lazy" src="Project-Images/Faltakoony-Bekhayr.jpeg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">ولو بعد حين</div>
+            <img loading="lazy" src="Project-Images/Walaw-baad-heen.jpeg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">قبران</div>
+            <img loading="lazy" src="Project-Images/Qabraan.jpeg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">يوتوبيا</div>
+            <img loading="lazy" src="Project-Images/Yotoopia.jpeg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">السيدة التي حسبت نفسها سوسة</div>
+            <img loading="lazy" src="Project-Images/Soosah.jpeg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">معصية ليلى</div>
+            <img loading="lazy" src="Project-Images/Maasayat-laylah.jpeg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">بنسيون عجب هانم</div>
+            <img loading="lazy" src="Project-Images/Benswan-ajab-hanem.png">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+        <div class="book-card">
+            <div class="book-title">وادي الذئاب المنسية </div>
+            <img loading="lazy" src="Project-Images/Wadi-mansiah.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+        <div class="book-card">
+            <div class="book-title">واختفى كل شيئ</div>
+            <img loading="lazy" src="Project-Images/Wakhtafa-kol-shay.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+        <div class="book-card">
+            <div class="book-title">عين الحياة</div>
+            <img loading="lazy" src="Project-Images/Ayn-Hayat.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+        <div class="book-card">
+            <div class="book-title">عين على المخيم</div>
+            <img loading="lazy" src="Project-Images/Ayn-Mokhayam.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+        <div class="book-card">
+            <div class="book-title">فلك</div>
+            <img loading="lazy" src="Project-Images/Falk.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+        <div class="book-card">
+            <div class="book-title">خوف 1</div>
+            <img loading="lazy" src="Project-Images/Khaof1.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+        <div class="book-card">
+            <div class="book-title">شبكة العنكبوت</div>
+            <img loading="lazy" src="Project-Images/Ankaboot.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+        <div class="book-card">
+            <div class="book-title">حول العالم في 80 يوما</div>
+            <img loading="lazy" src="Project-Images/Hawl-AAlem.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status unavailable">غير متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+        <div class="book-card">
+            <div class="book-title">تاجر البندقية</div>
+            <img loading="lazy" src="Project-Images/Tager-bondok.jpg">
+            <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
+            <span class="status available">متوفر</span>
+            <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+        </div>
+
     </div>
 
-    <div class="book-card">
-        <div class="book-title">محطة الرمل</div>
-        <img loading="lazy" src="Project-Images/Raml.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
+    <div class="contact-bar">
+        <div>المالك: <strong>Ahmed Elgenedy</strong></div>
+        <div>للشكاوي والمقترحات: <span id="phoneNumber" style="color: #4f7cff; font-weight: bold;">0532956274</span>
+        </div>
+        <a id="whatsappBtn" href="#">واتساب</a>
     </div>
 
-    <div class="book-card">
-        <div class="book-title">ايكادولي</div>
-        <img loading="lazy" src="Project-Images/Icadoli.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+    <script>
+        let currentPhone = "966532956274";
 
-    <div class="book-card">
-        <div class="book-title">اوبال</div>
-        <img loading="lazy" src="Project-Images/Obal.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+        /* =========================
+           اختيار النوع (بدون حفظ)
+        ========================= */
+        function setGender(type) {
+            const phoneDisplay = document.getElementById("phoneNumber");
+            const whatsappBtn = document.getElementById("whatsappBtn");
 
-    <div class="book-card">
-        <div class="book-title">ابادول</div>
-        <img loading="lazy" src="Project-Images/Abadol.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+            if (type === "male") {
+                document.body.style.background = "linear-gradient(135deg, #1e90ff, #00c6ff)";
+                currentPhone = "966532956274";
+                phoneDisplay.textContent = "0532956274";
+            } else {
+                document.body.style.background = "linear-gradient(135deg, #ff7eb3, #ff758c)";
+                currentPhone = "966548907024";
+                phoneDisplay.textContent = "0548907024";
+            }
 
-    <div class="book-card">
-        <div class="book-title">ياسمين أبيض</div>
-        <img loading="lazy" src="Project-Images/yasmin-Abyad.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+            whatsappBtn.onclick = (e) => {
+                e.preventDefault();
+                window.open(`https://wa.me/${currentPhone}`);
+            };
 
-    <div class="book-card">
-        <div class="book-title">ياسمين العودة</div>
-        <img loading="lazy" src="Project-Images/yasmin-awdah.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+            document.getElementById("genderPopup").style.display = "none";
+        }
 
-    <div class="book-card">
-        <div class="book-title">ان تبقى</div>
-        <img loading="lazy" src="Project-Images/An-Tabka.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+        /* =========================
+           normalize (بحث ذكي)
+        ========================= */
+        function normalize(text) {
+            return text
+                .replace(/[أإآ]/g, "ا")
+                .replace(/ة/g, "ه")
+                .replace(/ى/g, "ي")
+                .toLowerCase();
+        }
 
-    <div class="book-card">
-        <div class="book-title">آن في أفونليا</div>
-        <img loading="lazy" src="Project-Images/AAn-inflonia.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+        /* =========================
+           البحث + حفظه
+        ========================= */
+        let input = document.getElementById("searchInput");
 
-    <div class="book-card">
-        <div class="book-title">الحفرة</div>
-        <img loading="lazy" src="Project-Images/hofra.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+        input.value = localStorage.getItem("search") || "";
 
-    <div class="book-card">
-        <div class="book-title">الغرفة رقم 8</div>
-        <img loading="lazy" src="Project-Images/Room8.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+        input.addEventListener("input", function () {
+            localStorage.setItem("search", this.value);
+            filterBooks();
+        });
 
-    <div class="book-card">
-        <div class="book-title">منزل السيدة البدينة</div>
-        <img loading="lazy" src="Project-Images/Manzel-Alseeeday-Albadeenah.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+        /* =========================
+           الفلترة (بحث + متوفر فقط)
+        ========================= */
+        let availableCheckbox = document.getElementById("availableOnly");
 
-    <div class="book-card">
-        <div class="book-title">جثة في بيت طائر الدودو</div>
-        <img loading="lazy" src="Project-Images/Jothah-Dodo.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+        function filterBooks() {
+            let v = normalize(input.value);
+            let onlyAvailable = availableCheckbox ? availableCheckbox.checked : false;
 
-    <div class="book-card">
-        <div class="book-title">كريسماس في مكة</div>
-        <img loading="lazy" src="Project-Images/Krismas-in-makkah.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+            document.querySelectorAll(".book-card").forEach(card => {
+                let title = normalize(card.querySelector(".book-title").innerText);
+                let isAvailable = card.querySelector(".status").classList.contains("available");
 
-    <div class="book-card">
-        <div class="book-title">نريد عينيك</div>
-        <img loading="lazy" src="Project-Images/Untitled.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+                let matchSearch = title.includes(v);
+                let matchAvailable = !onlyAvailable || isAvailable;
 
-    <div class="book-card">
-        <div class="book-title">قربان آل يونس</div>
-        <img loading="lazy" src="Project-Images/qorban-AAl-Younis.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+                card.style.display = (matchSearch && matchAvailable) ? "" : "none";
+            });
 
-    <div class="book-card">
-        <div class="book-title">مقتل بائع الكتب</div>
-        <img loading="lazy" src="Project-Images/Maktal-Baea-Alkotob.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+            updateResults();
+        }
 
-    <div class="book-card">
-        <div class="book-title">مع النبي</div>
-        <img loading="lazy" src="Project-Images/Maa-Alnabay.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+        /* فلتر */
+        if (availableCheckbox) {
+            availableCheckbox.addEventListener("change", filterBooks);
+        }
 
-    <div class="book-card">
-        <div class="book-title">كوني صحابية</div>
-        <img loading="lazy" src="Project-Images/Kooni-sahabiah.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+        /* =========================
+           عدد النتائج
+        ========================= */
+        function updateResults() {
+            let visible = 0;
 
-    <div class="book-card">
-        <div class="book-title">قواعد جارتين</div>
-        <img loading="lazy" src="Project-Images/Koaed-Jarten.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+            document.querySelectorAll(".book-card").forEach(card => {
+                if (card.style.display !== "none") visible++;
+            });
 
-    <div class="book-card">
-        <div class="book-title">دقات الشامو</div>
-        <img loading="lazy" src="Project-Images/Dakkat-Alshamo.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+            let el = document.getElementById("resultsCount");
+            if (el) el.innerText = `عدد النتائج: ${visible}`;
+        }
 
-    <div class="book-card">
-        <div class="book-title">امواج اكما</div>
-        <img loading="lazy" src="Project-Images/Amyaj-Akma.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+        /* =========================
+           زر الرجوع لأعلى
+        ========================= */
+        let topBtn = document.getElementById("topBtn");
 
-    <div class="book-card">
-        <div class="book-title">خوف 2</div>
-        <img loading="lazy" src="Project-Images/Khof-2.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+        if (topBtn) {
+            window.onscroll = () => {
+                topBtn.style.display = window.scrollY > 300 ? "block" : "none";
+            };
 
-    <div class="book-card">
-        <div class="book-title">خوف 3</div>
-        <img loading="lazy" src="Project-Images/Khof-3.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+            topBtn.onclick = () => {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            };
+        }
 
-    <div class="book-card">
-        <div class="book-title">واحة اليعقوب</div>
-        <img loading="lazy" src="Project-Images/Wahet-Alyaaqoop.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+        /* =========================
+           التأجير + أنيميشن + واتساب
+        ========================= */
+        function sendRentOrder(btn) {
+            let card = btn.parentElement;
+            let status = card.querySelector(".status");
 
-    <div class="book-card">
-        <div class="book-title">كفانا حزنا</div>
-        <img loading="lazy" src="Project-Images/Kafana-Hosnan.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+            if (status.classList.contains("unavailable")) {
+                alert("هذا الكتاب غير متوفر حالياً");
+                return;
+            }
 
-    <div class="book-card">
-        <div class="book-title">كيف تقول لا</div>
-        <img loading="lazy" src="Project-Images/How-to-say-no.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+            let title = card.querySelector(".book-title").innerText;
 
-    <div class="book-card">
-        <div class="book-title">في قلبي انثى عبرية</div>
-        <img loading="lazy" src="Project-Images/Fi-Kalbi-onsa-ebriah.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+            const start = new Date();
+            const end = new Date();
+            end.setDate(start.getDate() + 7);
 
-    <div class="book-card">
-        <div class="book-title">فتاة الجزيرة</div>
-        <img loading="lazy" src="Project-Images/Fatat-Aljazeera.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+            const fmt = { weekday: 'long', day: 'numeric', month: 'long' };
+            const fromDate = start.toLocaleDateString('ar-EG', fmt);
+            const toDate = end.toLocaleDateString('ar-EG', fmt);
 
-    <div class="book-card">
-        <div class="book-title">اخدود البعث</div>
-        <img loading="lazy" src="Project-Images/Albaath.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+            const msg = `مرحباً، أرغب في تأجير رواية: (${title})\nالمدة: من (${fromDate}) إلى (${toDate})`;
 
-    <div class="book-card">
-        <div class="book-title">ارني انظر اليك</div>
-        <img loading="lazy" src="Project-Images/Areney-Anthor-elayk.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+            /* 🔥 أنيميشن */
+            btn.disabled = true;
+            btn.innerText = "جاري الطلب...";
+            btn.style.transform = "scale(0.95)";
 
-    <div class="book-card">
-        <div class="book-title">سقطرى</div>
-        <img loading="lazy" src="Project-Images/Sokotry.jpeg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+            setTimeout(() => {
+                btn.style.transform = "scale(1.1)";
+                btn.style.background = "#2ecc71";
+                btn.innerText = "تم ✔";
+            }, 400);
 
-    <div class="book-card">
-        <div class="book-title">كويكول</div>
-        <img loading="lazy" src="Project-Images/koykol.jpeg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+            setTimeout(() => {
+                btn.style.transform = "scale(1)";
+            }, 700);
 
-    <div class="book-card">
-        <div class="book-title">امانوس</div>
-        <img loading="lazy" src="Project-Images/Amanoos.jpeg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+            setTimeout(() => {
+                window.open(`https://wa.me/${currentPhone}?text=${encodeURIComponent(msg)}`);
 
-    <div class="book-card">
-        <div class="book-title">سيروش</div>
-        <img loading="lazy" src="Project-Images/Syroosh.jpeg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+                btn.disabled = false;
+                btn.innerText = "تأجير";
+                btn.style.background = "";
+            }, 1200);
+        }
 
-    <div class="book-card">
-        <div class="book-title">فلتكوني بخير</div>
-        <img loading="lazy" src="Project-Images/Faltakoony-Bekhayr.jpeg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+        /* =========================
+           ترتيب الكتب أبجدي
+        ========================= */
+        let grid = document.querySelector(".books-grid");
 
-    <div class="book-card">
-        <div class="book-title">ولو بعد حين</div>
-        <img loading="lazy" src="Project-Images/Walaw-baad-heen.jpeg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+        if (grid) {
+            let cards = Array.from(grid.children);
 
-    <div class="book-card">
-        <div class="book-title">قبران</div>
-        <img loading="lazy" src="Project-Images/Qabraan.jpeg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+            cards.sort((a, b) => {
+                let t1 = a.querySelector(".book-title").innerText;
+                let t2 = b.querySelector(".book-title").innerText;
+                return t1.localeCompare(t2);
+            });
 
-    <div class="book-card">
-        <div class="book-title">يوتوبيا</div>
-        <img loading="lazy" src="Project-Images/Yotoopia.jpeg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+            cards.forEach(c => grid.appendChild(c));
+        }
 
-    <div class="book-card">
-        <div class="book-title">السيدة التي حسبت نفسها سوسة</div>
-        <img loading="lazy" src="Project-Images/Soosah.jpeg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+        /* تشغيل أولي */
+        filterBooks();
+        function setGender(type) {
+            const popup = document.getElementById("genderPopup");
+            const body = document.body;
 
-    <div class="book-card">
-        <div class="book-title">معصية ليلى</div>
-        <img loading="lazy" src="Project-Images/Maasayat-laylah.jpeg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+            let selectedCard;
 
-    <div class="book-card">
-        <div class="book-title">بنسيون عجب هانم</div>
-        <img loading="lazy" src="Project-Images/Benswan-ajab-hanem.png">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
-     <div class="book-card">
-        <div class="book-title">وادي الذئاب المنسية </div>
-        <img loading="lazy" src="Project-Images/Wadi-mansiah.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
-     <div class="book-card">
-        <div class="book-title">واختفى كل شيئ</div>
-        <img loading="lazy" src="Project-Images/Wakhtafa-kol-shay.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
-     <div class="book-card">
-        <div class="book-title">عين الحياة</div>
-        <img loading="lazy" src="Project-Images/Ayn-Hayat.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
-     <div class="book-card">
-        <div class="book-title">عين على المخيم</div>
-        <img loading="lazy" src="Project-Images/Ayn-Mokhayam.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
-     <div class="book-card">
-        <div class="book-title">فلك</div>
-        <img loading="lazy" src="Project-Images/Falk.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
-     <div class="book-card">
-        <div class="book-title">خوف 1</div>
-        <img loading="lazy" src="Project-Images/Khaof1.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
-     <div class="book-card">
-        <div class="book-title">شبكة العنكبوت</div>
-        <img loading="lazy" src="Project-Images/Ankaboot.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
-     <div class="book-card">
-        <div class="book-title">حول العالم في 80 يوما</div>
-        <img loading="lazy" src="Project-Images/Hawl-AAlem.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status unavailable">غير متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
-     <div class="book-card">
-        <div class="book-title">تاجر البندقية</div>
-        <img loading="lazy" src="Project-Images/Tager-bondok.jpg">
-        <div class="rent">سعر التأجير: 5 ريال / أسبوع</div>
-        <span class="status available">متوفر</span>
-        <button class="rent-btn" onclick="sendRentOrder(this)">تأجير</button>
-    </div>
+            if (type === "male") {
+                body.style.background = "linear-gradient(135deg, #1e90ff, #00c6ff)";
+                currentPhone = "966532956274";
+                document.getElementById("phoneNumber").textContent = "0532956274";
 
-</div>
+                selectedCard = document.querySelector(".gender-options div:first-child");
+            } else {
+                body.style.background = "linear-gradient(135deg, #ff7eb3, #ff758c)";
+                currentPhone = "966548907024";
+                document.getElementById("phoneNumber").textContent = "0548907024";
 
-<div class="contact-bar">
-    <div>المالك: <strong>Ahmed Elgenedy</strong></div>
-    <div>للشكاوي والمقترحات: <span id="phoneNumber" style="color: #4f7cff; font-weight: bold;">0532956274</span></div>
-    <a id="whatsappBtn" href="#">واتساب</a>
-</div>
+                selectedCard = document.querySelector(".gender-options div:last-child");
+            }
 
-<script>
-let currentPhone = "966532956274";
+            document.getElementById("whatsappBtn").onclick = (e) => {
+                e.preventDefault();
+                window.open(`https://wa.me/${currentPhone}`);
+            };
 
-function setGender(type){
-    const phoneDisplay = document.getElementById("phoneNumber");
-    const whatsappBtn = document.getElementById("whatsappBtn");
+            /* ===== ANIMATION ===== */
+            selectedCard.style.transition = "0.5s ease";
+            selectedCard.style.transform = "scale(1.3) translateY(-20px)";
+            selectedCard.style.filter = "drop-shadow(0 0 20px rgba(255,255,255,0.6))";
 
-    if(type === "male"){
-        document.body.style.background = "linear-gradient(135deg, #1e90ff, #00c6ff)";
-        currentPhone = "966532956274"; 
-        phoneDisplay.textContent = "0532956274";
-    } else {
-        document.body.style.background = "linear-gradient(135deg, #ff7eb3, #ff758c)";
-        currentPhone = "966548907024";
-        phoneDisplay.textContent = "0548907024";
-    }
+            setTimeout(() => {
+                popup.style.transition = "0.6s ease";
+                popup.style.opacity = "0";
+                popup.style.transform = "scale(0.9)";
+            }, 400);
 
-    whatsappBtn.onclick = (e) => {
-        e.preventDefault();
-        window.open(`https://wa.me/${currentPhone}`);
-    };
-    document.getElementById("genderPopup").style.display = "none";
-}
-
-document.getElementById("searchInput").addEventListener("input", function(){
-    let v = this.value.toLowerCase();
-    document.querySelectorAll(".book-card").forEach(b => {
-        let t = b.querySelector(".book-title").innerText.toLowerCase();
-        b.style.display = t.includes(v) ? "" : "none";
-    });
-});
-
-/* وظيفة التأجير المحدثة - المدة فقط */
-
-function sendRentOrder(btn){
-    let card = btn.parentElement;
-    let status = card.querySelector(".status");
-
-    if(status.classList.contains("unavailable")){
-        alert("هذا الكتاب غير متوفر حالياً");
-        return;
-    }
-
-    let title = card.querySelector(".book-title").innerText;
-
-    const start = new Date();
-    const end = new Date();
-    end.setDate(start.getDate() + 7);
-
-    const fmt = { weekday: 'long', day: 'numeric', month: 'long' };
-    const fromDate = start.toLocaleDateString('ar-EG', fmt);
-    const toDate = end.toLocaleDateString('ar-EG', fmt);
-
-    const msg = `مرحباً، أرغب في تأجير رواية: (${title})\nالمدة: من (${fromDate}) إلى (${toDate})`;
-
-    window.open(`https://wa.me/${currentPhone}?text=${encodeURIComponent(msg)}`);
-}
-function normalize(text){
-    return text
-        .replace(/[أإآ]/g, "ا")
-        .replace(/ة/g, "ه")
-        .replace(/ى/g, "ي")
-        .toLowerCase();
-}
-
-document.getElementById("searchInput").addEventListener("input", function(){
-    let v = normalize(this.value);
-
-    document.querySelectorAll(".book-card").forEach(b => {
-        let t = normalize(b.querySelector(".book-title").innerText);
-        b.style.display = t.includes(v) ? "" : "none";
-    });
-});
-</script>
+            setTimeout(() => {
+                popup.style.display = "none";
+            }, 900);
+        }
+    </script>
 </body>
+
 </html>
